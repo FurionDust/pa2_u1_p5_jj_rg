@@ -12,4 +12,6 @@ public interface ICuentaBancariaRepository {
 	public void actualizar(CuentaBancaria cuentaBancaria);
 
 	public void eliminar(String numero);
+	
+	public CuentaBancaria seleccionarEliminar(String numero);
 }

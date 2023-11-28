@@ -51,5 +51,15 @@ public class CuentaBancariaRepositoryImpl implements ICuentaBancariaRepository {
 		base.remove(cuenta);
 
 	}
+	@Override
+	public CuentaBancaria seleccionarEliminar(String numero) {
+		// TODO Auto-generated method stub
+		for (CuentaBancaria cuenta : base) {
+			if (cuenta.getNumero().equals(numero)) {
+				return cuenta;
+			}
+		}
 
+		return null;
+	}
 }
