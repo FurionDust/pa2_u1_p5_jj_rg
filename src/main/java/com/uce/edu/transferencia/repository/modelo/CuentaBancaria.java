@@ -9,6 +9,7 @@ public class CuentaBancaria {
 
 	private String numero;
 	private String cedulaPropietario;
+	private BigDecimal monto;
 	private BigDecimal saldo;
 
 	
@@ -30,6 +31,13 @@ public class CuentaBancaria {
 
 	public String getCedulaPropietario() {
 		return cedulaPropietario;
+	}
+	public BigDecimal getMonto() {
+		return monto;
+	}
+
+	public void setMonto(BigDecimal monto) {
+		this.monto = monto;
 	}
 
 	public void setCedulaPropietario(String cedulaPropietario) {
