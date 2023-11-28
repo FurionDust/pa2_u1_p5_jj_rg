@@ -1,14 +1,14 @@
 package com.uce.edu.transferencia.service;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.math.RoundingMode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uce.edu.transferencia.repository.ICuentaBancariaRepository;
 import com.uce.edu.transferencia.repository.modelo.CuentaBancaria;
-import com.uce.edu.transferencia.repository.modelo.Transferencia;
+
 
 @Service
 public class CuentaBancariaServiceImpl implements ICuentaBancariaService {
@@ -42,29 +42,24 @@ public class CuentaBancariaServiceImpl implements ICuentaBancariaService {
 
 	@Override
 	public void depositar(String numero, BigDecimal monto) {
-		// TODO Auto-generated method stub
-		// 1. Buscar cuenta por numero
-		CuentaBancaria cta = this.bancariaRepository.seleccionar(numero);
-		// 2. Consultar el saldo
-		BigDecimal saldoOrigen = cta.getSaldo();
-		// 3. Validar el saldo
-		if(saldoOrigen.compareTo(monto)>=0) {
-		// 4. Aumentar el monto del deposito
-		BigDecimal nuevoSaldoOrigen = saldoOrigen.add(monto);
-		//5. Restar el 10% al nuevo saldo
-		BigDecimal interes =new BigDecimal(0.1);
-		BigDecimal saldoInteres = nuevoSaldoOrigen.subtract(interes);
-		//6. Actualizar el monto
-		cta.setSaldo(saldoInteres);
-		this.bancariaRepository.actualizar(cta);
-		CuentaBancaria deposito = new CuentaBancaria();
-		deposito.setMonto(monto);
-		deposito.setNumero("1231");
+		//1. Buscar la cuenta a la que se hará el deposito
+		CuentaBancaria ctaDeposito = this.bancariaRepository.seleccionar(numero);
+		//2. Consultar el saldo
+		BigDecimal saldoAnterior = ctaDeposito.getSaldo();
+		//3. Restar el interes del monto
+		BigDecimal interes = new BigDecimal(0.9); //es 0.9 porque para obtener el 0.1 es (1-0.1)
+		BigDecimal nuevoMonto = monto.multiply(interes).setScale(2, RoundingMode.HALF_EVEN);
+		//4. Se añade el nuevo monto al saldo
+		BigDecimal nuevoSaldo = saldoAnterior.add(nuevoMonto);
+		//5. se actualiza el saldo
+		ctaDeposito.setSaldo(nuevoSaldo);
+		this.bancariaRepository.actualizar(ctaDeposito);
+	
+		System.out.println("Deposito realizado con exito!");
 		
-		this.bancariaRepository.insertar(deposito);
-		System.out.println("Deposito realizado con Exito!");
-					
-	}
+		//BigDecimal nuevoSaldoActualizado = ctaDeposito.getSaldo().setScale(3, RoundingMode.HALF_EVEN);
+		//System.out.println("Nuevo saldo: " + nuevoSaldoActualizado);
+		
 	}
 
 }

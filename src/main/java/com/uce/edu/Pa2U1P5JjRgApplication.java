@@ -34,7 +34,8 @@ public class Pa2U1P5JjRgApplication implements CommandLineRunner {
 		ctaOrigen.setNumero("1234");
 		ctaOrigen.setSaldo(new BigDecimal(100));
 		this.iCuentaBancariaService.guardar(ctaOrigen);
-	
+
+		
 		CuentaBancaria ctaDestino = new CuentaBancaria();
 		ctaDestino.setCedulaPropietario("1719608729");
 		ctaDestino.setNumero("1235");
@@ -42,16 +43,16 @@ public class Pa2U1P5JjRgApplication implements CommandLineRunner {
 		this.iCuentaBancariaService.guardar(ctaDestino);
 
 		this.iTransferenciaService.realizar("1234", "1235", new BigDecimal(10));
-		
+
 		this.iTransferenciaService.realizar("1234","1235", new BigDecimal(10));
 		this.iTransferenciaService.realizar("1235","1234", new BigDecimal(10));
-	
-		
+
+
 		List<Transferencia> lista = this.iTransferenciaService.buscarTodos();
 		int indice=0;
 		for(Transferencia trans:lista) {
 			indice++;
-			System.out.println(trans+" : "+trans);
+			System.out.println(trans+" : "+trans.getNumero());
 		}
 		CuentaBancaria ctaOrigen1 = this.iCuentaBancariaService.buscar("1234");
 		System.out.println(ctaOrigen1);
@@ -60,5 +61,8 @@ public class Pa2U1P5JjRgApplication implements CommandLineRunner {
 		System.out.println(ctaDestino1);
 		
 		this.iCuentaBancariaService.depositar("1234", new BigDecimal(100));
+		
+		CuentaBancaria ctaOrigen2 = this.iCuentaBancariaService.buscar("1234");
+		System.out.println(ctaOrigen2);
 	}
 }
