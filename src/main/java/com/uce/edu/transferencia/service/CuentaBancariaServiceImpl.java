@@ -57,9 +57,6 @@ public class CuentaBancariaServiceImpl implements ICuentaBancariaService {
 	
 		System.out.println("Deposito realizado con exito!");
 		
-		//BigDecimal nuevoSaldoActualizado = ctaDeposito.getSaldo().setScale(3, RoundingMode.HALF_EVEN);
-		//System.out.println("Nuevo saldo: " + nuevoSaldoActualizado);
-		
 	}
 
 }

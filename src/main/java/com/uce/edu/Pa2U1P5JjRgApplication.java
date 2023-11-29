@@ -14,10 +14,26 @@ import com.uce.edu.transferencia.service.ITransferenciaService;
 
 @SpringBootApplication
 public class Pa2U1P5JjRgApplication implements CommandLineRunner {
-
-	@Autowired
+	
+	@Autowired //inyeccion por atributo
 	private ITransferenciaService iTransferenciaService;
-
+	
+	/* Inyeccion por constructor
+	private ITransferenciaService iTransferenciaService;
+	
+	@Autowired
+	public Pa2U1P5JjRgApplication(ITransferenciaService iTransServi) {
+		this.iTransferenciaService=iTransServi;
+	} 
+	*/
+	/* Inyeccion por método
+	private ITransferenciaService iTransferenciaService;
+	
+	@Autowired 
+	public void setiTransferenciaService(ITransferenciaService iTransferenciaService) {
+		this.iTransferenciaService = iTransferenciaService;
+	}
+	 */
 	@Autowired
 	private ICuentaBancariaService iCuentaBancariaService;
 
